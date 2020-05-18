@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bash
 
 while read -r l; do
-  mount_point=$(echo "$l" | cut -d " " -f2)
+  mount_point=/mnt/$(echo "$l" | cut -d " " -f2)
   echo "Unmounting $mount_point"
   fusermount -u "$mount_point"
 done </config/config.txt
