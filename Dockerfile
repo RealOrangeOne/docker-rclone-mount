@@ -1,6 +1,6 @@
-FROM lsiobase/alpine:3.11
+FROM lsiobase/alpine:3.12
 
-RUN apk --no-cache add --repository http://dl-cdn.alpinelinux.org/alpine/edge/community rclone
+RUN apk --no-cache add rclone
 
 RUN rclone version
 
