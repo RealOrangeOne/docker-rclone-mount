@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:3.11 as downloader
+FROM lsiobase/alpine:3.12 as downloader
 
 ARG VERSION=current
 
