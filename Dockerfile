@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:3.12 as downloader
+FROM lsiobase/alpine:3.13 as downloader
 
 ARG VERSION=current
 
@@ -10,7 +10,7 @@ RUN unzip rclone-${VERSION}-linux-amd64.zip -d rclone_unzip && \
    cd rclone_unzip/* && \
    mv rclone /rclone
 
-FROM lsiobase/alpine:3.12
+FROM lsiobase/alpine:3.13
 
 COPY --from=downloader /rclone /usr/bin/rclone
 
