@@ -1,20 +1,6 @@
-FROM lsiobase/alpine:3.13 as downloader
+FROM lsiobase/alpine:3.14
 
-ARG VERSION=current
-
-RUN apk --no-cache add ca-certificates curl unzip
-
-#Fetch and unpack
-RUN if [ "${VERSION}" != 'current' ]; then FOLDER="/${VERSION}"; fi; curl -O https://downloads.rclone.org/${FOLDER}/rclone-${VERSION}-linux-amd64.zip
-RUN unzip rclone-${VERSION}-linux-amd64.zip -d rclone_unzip && \
-   cd rclone_unzip/* && \
-   mv rclone /rclone
-
-FROM lsiobase/alpine:3.13
-
-COPY --from=downloader /rclone /usr/bin/rclone
-
-RUN apk add --no-cache gettext fuse
+RUN apk add --no-cache gettext fuse rclone
 
 RUN rclone version
 
