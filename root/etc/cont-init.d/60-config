@@ -6,12 +6,13 @@ chown abc:abc /tmp/rclone.conf
 
 while read -r l; do
   echo "Processing line: $l"
-  remote_name=$(echo "$l" | cut -d " " -f1)
-  mount_point=/mnt/$(echo "$l" | cut -d " " -f2)
-  parameters=$(echo "$l" | cut -d " " -f3-)
+  eval "arr=($l)"
+  remote_name=${arr[0]}
+  mount_point=/mnt/${arr[1]}
+  params=("${arr[@]:2}")
   service_name=$(echo "$remote_name" | base64)
   mkdir -p "/etc/services.d/$service_name/"
-  export mount_point remote_name parameters
+  export mount_point remote_name params
   envsubst < /etc/defaults/run.sh > "/etc/services.d/$service_name/run"
   chmod +x "/etc/services.d/$service_name/run"
 done </config/config.txt
