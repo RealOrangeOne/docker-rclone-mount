@@ -8,9 +8,10 @@ while read -r l; do
   echo "Processing line: $l"
   remote_name=$(echo "$l" | cut -d " " -f1)
   mount_point=/mnt/$(echo "$l" | cut -d " " -f2)
+  parameters=$(echo "$l" | cut -d " " -f3-)
   service_name=$(echo "$remote_name" | base64)
   mkdir -p "/etc/services.d/$service_name/"
-  export mount_point remote_name
+  export mount_point remote_name parameters
   envsubst < /etc/defaults/run.sh > "/etc/services.d/$service_name/run"
   chmod +x "/etc/services.d/$service_name/run"
 done </config/config.txt
